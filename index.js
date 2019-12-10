@@ -2,6 +2,7 @@
 
 const Audit = require('./src/Audit')
 const SeverityReporter = require('./src/Reporters/SeverityReporter')
+const DependencyTypeReporter = require('./src/Reporters/DependencyTypeReporter')
 
 async function main() {
   // instantiate a new audit session
@@ -10,13 +11,22 @@ async function main() {
 
   // report severity stats
   printVulnsSeverity(vulnerabilitiesResult)
+  printVulnsDependencyType(vulnerabilitiesResult)
 }
 
 function printVulnsSeverity(vulnerabilitiesResult) {
-  const severityReporter = new SeverityReporter({
+  const reporter = new SeverityReporter({
     data: vulnerabilitiesResult
   })
-  const stdoutText = severityReporter.getResult()
+  const stdoutText = reporter.getResult()
+  console.log(stdoutText)
+}
+
+function printVulnsDependencyType(vulnerabilitiesResult) {
+  const reporter = new DependencyTypeReporter({
+    data: vulnerabilitiesResult
+  })
+  const stdoutText = reporter.getResult()
   console.log(stdoutText)
 }
 
