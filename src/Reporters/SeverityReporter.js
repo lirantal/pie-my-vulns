@@ -20,13 +20,21 @@ class SeverityReporter {
     var pieChart = new Pie(
       this.options.pieSize,
       [
-        { label: 'High', value: vulnSeverityParser.getHighSeverityCount(), color: [0, 0, 255] },
         {
-          label: 'Medium',
+          label: 'High severity',
+          value: vulnSeverityParser.getHighSeverityCount(),
+          color: [0, 0, 255]
+        },
+        {
+          label: 'Medium severity',
           value: vulnSeverityParser.getMediumSeverityCount(),
           color: [255, 0, 255]
         },
-        { label: 'Low', value: vulnSeverityParser.getLowSeverityCount(), color: [255, 255, 0] }
+        {
+          label: 'Low severity',
+          value: vulnSeverityParser.getLowSeverityCount(),
+          color: [255, 255, 0]
+        }
       ],
       {
         legend: true,

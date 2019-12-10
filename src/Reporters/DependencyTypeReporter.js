@@ -21,17 +21,17 @@ class DependencyTypeReporter {
       this.options.pieSize,
       [
         {
-          label: 'Upgradable Vulns',
+          label: 'Upgradable vulnerabilities',
           value: vulnSeverityParser.getUpgradableCount(),
           color: [0, 0, 255]
         },
         {
-          label: 'Patchable Vulns',
+          label: 'Patchable vulnerabilities',
           value: vulnSeverityParser.getPatchableCount(),
           color: [255, 0, 255]
         },
         {
-          label: 'No Remediation',
+          label: 'No remediation available',
           value: vulnSeverityParser.getNoRemediationCount(),
           color: [255, 255, 0]
         }
