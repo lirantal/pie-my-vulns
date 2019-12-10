@@ -23,17 +23,17 @@ class DependencyTypeReporter {
         {
           label: 'Upgradable vulnerabilities',
           value: vulnSeverityParser.getUpgradableCount(),
-          color: [0, 0, 255]
+          color: [0, 255, 0]
         },
         {
           label: 'Patchable vulnerabilities',
           value: vulnSeverityParser.getPatchableCount(),
-          color: [255, 0, 255]
+          color: [0, 0, 255]
         },
         {
           label: 'No remediation available',
           value: vulnSeverityParser.getNoRemediationCount(),
-          color: [255, 255, 0]
+          color: [255, 0, 50]
         }
       ],
       {

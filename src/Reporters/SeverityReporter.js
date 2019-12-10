@@ -23,17 +23,17 @@ class SeverityReporter {
         {
           label: 'High severity',
           value: vulnSeverityParser.getHighSeverityCount(),
-          color: [0, 0, 255]
+          color: [255, 0, 255]
         },
         {
           label: 'Medium severity',
           value: vulnSeverityParser.getMediumSeverityCount(),
-          color: [255, 0, 255]
+          color: [179, 26, 107]
         },
         {
           label: 'Low severity',
           value: vulnSeverityParser.getLowSeverityCount(),
-          color: [255, 255, 0]
+          color: [89, 87, 117]
         }
       ],
       {
