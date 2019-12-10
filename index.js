@@ -10,6 +10,7 @@ async function main() {
   const vulnerabilitiesResult = await audit.test()
 
   // report severity stats
+  console.log()
   printVulnsSeverity(vulnerabilitiesResult)
   printVulnsDependencyType(vulnerabilitiesResult)
 }
@@ -19,6 +20,7 @@ function printVulnsSeverity(vulnerabilitiesResult) {
     data: vulnerabilitiesResult
   })
   const stdoutText = reporter.getResult()
+  console.log(`Vulnerabilities by severity:`)
   console.log(stdoutText)
 }
 
@@ -27,6 +29,7 @@ function printVulnsDependencyType(vulnerabilitiesResult) {
     data: vulnerabilitiesResult
   })
   const stdoutText = reporter.getResult()
+  console.log(`Vulnerabilities by remediation action:`)
   console.log(stdoutText)
 }
 
