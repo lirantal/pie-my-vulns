@@ -40,7 +40,8 @@
     "url": "https://github.com/lirantal/pie-my-vulns.git"
   },
   "dependencies": {
-    "snyk": "^1.258.0"
+    "cli-pie": "^2.4.1",
+    "snyk": "^1.258.1"
   },
   "devDependencies": {
     "@commitlint/cli": "^7.2.1",
