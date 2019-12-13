@@ -1,0 +1,45 @@
+'use strict'
+
+const Pie = require('cli-pie')
+const DependencyTypeParser = require('../Parsers/DependencyTypeParser')
+const DEFAULT_PIE_SIZE = 2
+
+class DependencyTypeReporter {
+  constructor({ data, pieSize, colorFul }) {
+    this.options = {
+      pieSize: pieSize || DEFAULT_PIE_SIZE,
+      colorFul: colorFul || true
+    }
+    this.data = data
+  }
+
+  getResult() {
+    const depTypeParser = new DependencyTypeParser(this.data)
+    depTypeParser.parse()
+
+    var pieChart = new Pie(
+      this.options.pieSize,
+      [
+        {
+          label: 'Production Dependencies',
+          value: depTypeParser.getProdDependencyCount(),
+          color: [0, 255, 0]
+        },
+        {
+          label: 'Development Dependencies',
+          value: depTypeParser.getDevDependencyCount(),
+          color: [0, 0, 255]
+        }
+      ],
+      {
+        legend: true,
+        flat: true,
+        no_ansi: !this.options.colorFul
+      }
+    )
+
+    return pieChart.toString()
+  }
+}
+
+module.exports = DependencyTypeReporter
