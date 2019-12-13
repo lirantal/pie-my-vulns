@@ -5,43 +5,24 @@ const SeverityReporter = require('./src/Reporters/SeverityReporter')
 const RemediationTypeReporter = require('./src/Reporters/RemediationTypeReporter')
 const DependencyTypeReporter = require('./src/Reporters/DependencyTypeReporter')
 
+const reportsList = [SeverityReporter, DependencyTypeReporter, RemediationTypeReporter]
+
 async function main() {
   // instantiate a new audit session
   const audit = new Audit()
   const vulnerabilitiesResult = await audit.test()
 
-  // report severity stats
   console.log()
-  printVulnsSeverity(vulnerabilitiesResult)
-  printVulnsRemediationType(vulnerabilitiesResult)
-  printVulnsDependencyType(vulnerabilitiesResult)
-}
+  reportsList.forEach(Reporter => {
+    const reporter = new Reporter({
+      data: vulnerabilitiesResult
+    })
 
-function printVulnsSeverity(vulnerabilitiesResult) {
-  const reporter = new SeverityReporter({
-    data: vulnerabilitiesResult
+    const stdoutText = reporter.getResult()
+    console.log(reporter.getTitle())
+    console.log(stdoutText)
+    console.log()
   })
-  const stdoutText = reporter.getResult()
-  console.log(`Vulnerabilities by severity:`)
-  console.log(stdoutText)
-}
-
-function printVulnsRemediationType(vulnerabilitiesResult) {
-  const reporter = new RemediationTypeReporter({
-    data: vulnerabilitiesResult
-  })
-  const stdoutText = reporter.getResult()
-  console.log(`Vulnerabilities by remediation action:`)
-  console.log(stdoutText)
-}
-
-function printVulnsDependencyType(vulnerabilitiesResult) {
-  const reporter = new DependencyTypeReporter({
-    data: vulnerabilitiesResult
-  })
-  const stdoutText = reporter.getResult()
-  console.log(`Vulnerabilities by dependency source:`)
-  console.log(stdoutText)
 }
 
 main()

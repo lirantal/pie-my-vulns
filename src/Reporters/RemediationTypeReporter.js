@@ -13,6 +13,10 @@ class RemediationTypeReporter {
     this.data = data
   }
 
+  getTitle() {
+    return `Vulnerabilities by remediation action:`
+  }
+
   getResult() {
     const vulnSeverityParser = new RemediationTypeParser(this.data)
     vulnSeverityParser.parse()

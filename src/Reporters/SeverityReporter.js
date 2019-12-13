@@ -13,6 +13,10 @@ class SeverityReporter {
     this.data = data
   }
 
+  getTitle() {
+    return `Vulnerabilities by severity:`
+  }
+
   getResult() {
     const vulnSeverityParser = new VulnerabilitySeverityParser(this.data)
     vulnSeverityParser.parse()

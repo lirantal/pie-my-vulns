@@ -13,6 +13,10 @@ class DependencyTypeReporter {
     this.data = data
   }
 
+  getTitle() {
+    return `Vulnerabilities by dependency source:`
+  }
+
   getResult() {
     const depTypeParser = new DependencyTypeParser(this.data)
     depTypeParser.parse()
