@@ -1,6 +1,6 @@
 'use strict'
 
-class DependencyTypeParser {
+class RemediationTypeParser {
   constructor(vulnsData) {
     this.vulnsData = vulnsData
     this.vulnsMap = {
@@ -46,4 +46,4 @@ class DependencyTypeParser {
   }
 }
 
-module.exports = DependencyTypeParser
+module.exports = RemediationTypeParser
