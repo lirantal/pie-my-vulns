@@ -8,6 +8,7 @@ const DependencyTypeReporter = require('./src/Reporters/DependencyTypeReporter')
 
 const EXIT_CODE_ERROR = 2
 const EXIT_CODE_VULNS = 1
+const EXIT_CODE_VULNS_NONE = 0
 const reportsList = [SeverityReporter, DependencyTypeReporter, RemediationTypeReporter]
 
 async function main() {
@@ -31,13 +32,9 @@ async function main() {
     console.log()
   })
 
-  if (
-    vulnerabilitiesResult &&
-    vulnerabilitiesResult.vulnerabilities &&
-    vulnerabilitiesResult.vulnerabilities.length > 0
-  ) {
-    process.exit(EXIT_CODE_VULNS)
-  }
+  isVulnerabilitiesDetected(vulnerabilitiesResult)
+    ? process.exit(EXIT_CODE_VULNS)
+    : process.exit(EXIT_CODE_VULNS_NONE)
 }
 
 function printError(error) {
@@ -50,6 +47,10 @@ function printError(error) {
   console.error(`Please open an issue at: ${githubIssueURL}`)
 
   process.exit(EXIT_CODE_ERROR)
+}
+
+function isVulnerabilitiesDetected(vulnsData) {
+  return vulnsData && vulnsData.vulnerabilities && vulnsData.vulnerabilities.length > 0
 }
 
 main().catch(error => {
