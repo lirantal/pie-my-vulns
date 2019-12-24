@@ -8,6 +8,7 @@ const ExecFile = Util.promisify(ChildProcess.execFile)
 const auditCliCommand = `${__dirname}/../node_modules/snyk/dist/cli/index.js`
 const ERROR_VULNS_FOUND = 1
 const ERROR_UNAUTHENTICATED = 2
+const JSON_BUFFER_SIZE = 50 * 1024 * 1024
 
 class Audit {
   async authenticate() {
@@ -37,7 +38,8 @@ class Audit {
     let testResults = []
 
     try {
-      await ExecFile(auditCliCommand, ['test', '--json'])
+      // allow for 50MB of buffer for a large JSON output
+      await ExecFile(auditCliCommand, ['test', '--json'], { maxBuffer: JSON_BUFFER_SIZE })
     } catch (error) {
       if (error.code === ERROR_VULNS_FOUND) {
         // we are authenticated as a user for Snyk
