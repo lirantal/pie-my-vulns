@@ -5,7 +5,7 @@ const Util = require('util')
 const ChildProcess = require('child_process')
 const ExecFile = Util.promisify(ChildProcess.execFile)
 
-const auditCliCommand = 'node_modules/snyk/dist/cli/index.js'
+const auditCliCommand = `${__dirname}/../node_modules/snyk/dist/cli/index.js`
 const ERROR_VULNS_FOUND = 1
 const ERROR_UNAUTHENTICATED = 2
 
