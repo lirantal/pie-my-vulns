@@ -28,22 +28,21 @@
 
 Visualize your project security vulnerabilities as a pie chart in the terminal
 
-# Install
-
-```bash
-npm install --save pie-my-vulns
-```
-
 # Usage
 
-```js
-// @TODO
-const {} = require('pie-my-vulns')
+Using Node.js's `npx` to scan security vulnerabilities in an existing Node.js or JavaScript project direcctory (a `package.json` is required)
+
+```bash
+npx pie-my-vulns
 ```
 
-# Example
+# Install
 
-<!-- TODO -->
+You can install globally via:
+
+```bash
+npm install -g pie-my-vulns
+```
 
 # Contributing
 
