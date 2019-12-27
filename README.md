@@ -16,6 +16,14 @@
   <a href="./SECURITY.md"><img src="https://img.shields.io/badge/Security-Responsible%20Disclosure-yellow.svg" alt="Responsible Disclosure Policy" /></a>
 </p>
 
+<p align="center">
+  <img src="./.github/pie-my-vulns-logo.svg" height="150px" alt="Screenshot of npm module called pie-my-vulns that draws pie charts in the terminal reflecting security vulnerabilities found in JavaScript and Node.js projects based on Snyk vulnerability database" />
+  
+  <p align="center">
+  	<p align="center">Many thanks to <a href="https://snyk.io"><img src="./.github/snyk-logo.png" width="100"></a> for supporting open source security</p>
+    
+</p>
+
 # About
 
 Visualize your project security vulnerabilities as a pie chart in the terminal
