@@ -23,7 +23,8 @@ async function main() {
   console.log()
   reportsList.forEach(Reporter => {
     const reporter = new Reporter({
-      data: vulnerabilitiesResult
+      data: vulnerabilitiesResult,
+      colorFul: true
     })
 
     const stdoutText = reporter.getResult()

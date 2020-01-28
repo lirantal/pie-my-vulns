@@ -8,7 +8,7 @@ class DependencyTypeReporter {
   constructor({ data, pieSize, colorFul }) {
     this.options = {
       pieSize: pieSize || DEFAULT_PIE_SIZE,
-      colorFul: colorFul || true
+      colorFul: !!colorFul
     }
     this.data = data
   }
