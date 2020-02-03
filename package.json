@@ -2,7 +2,9 @@
   "name": "pie-my-vulns",
   "version": "0.0.0-development",
   "description": "Visualize your project security vulnerabilities as a pie chart in the terminal",
-  "main": "index.js",
+  "bin": {
+    "pie-my-vulns": "./bin/pie-my-vulns.js"
+  },
   "engines": {
     "node": ">=8.0.0"
   },

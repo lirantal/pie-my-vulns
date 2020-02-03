@@ -41,7 +41,6 @@ class Audit {
       // allow for 50MB of buffer for a large JSON output
       await ExecFile(auditCliCommand, ['test', '--json'], { maxBuffer: JSON_BUFFER_SIZE })
     } catch (error) {
-      console.log(error)
       if (error.code === ERROR_VULNS_FOUND) {
         // we are authenticated as a user for Snyk
         // but vulnerabilities have been found

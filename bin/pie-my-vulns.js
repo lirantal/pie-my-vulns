@@ -1,10 +1,11 @@
+#!/usr/bin/env node
 /* eslint-disable no-process-exit */
 'use strict'
 
-const Audit = require('./src/Audit')
-const SeverityReporter = require('./src/Reporters/SeverityReporter')
-const RemediationTypeReporter = require('./src/Reporters/RemediationTypeReporter')
-const DependencyTypeReporter = require('./src/Reporters/DependencyTypeReporter')
+const Audit = require('../src/Audit')
+const SeverityReporter = require('../src/Reporters/SeverityReporter')
+const RemediationTypeReporter = require('../src/Reporters/RemediationTypeReporter')
+const DependencyTypeReporter = require('../src/Reporters/DependencyTypeReporter')
 
 const EXIT_CODE_ERROR = 2
 const EXIT_CODE_VULNS = 1
