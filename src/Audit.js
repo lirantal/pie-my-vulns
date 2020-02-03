@@ -3,7 +3,6 @@
 
 const Util = require('util')
 const ChildProcess = require('child_process')
-const ExecFile = Util.promisify(ChildProcess.execFile)
 
 const auditCliCommand = `${__dirname}/../node_modules/snyk/dist/cli/index.js`
 const ERROR_VULNS_FOUND = 1
@@ -35,12 +34,14 @@ class Audit {
   }
 
   async test() {
+    const ExecFile = Util.promisify(ChildProcess.execFile)
     let testResults = []
 
     try {
       // allow for 50MB of buffer for a large JSON output
       await ExecFile(auditCliCommand, ['test', '--json'], { maxBuffer: JSON_BUFFER_SIZE })
     } catch (error) {
+      console.log(error)
       if (error.code === ERROR_VULNS_FOUND) {
         // we are authenticated as a user for Snyk
         // but vulnerabilities have been found
