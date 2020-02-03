@@ -1,38 +1,77 @@
-const Reporter = require('../../src/Reporters/DependencyTypeReporter')
+/* eslint-disable security/detect-object-injection */
+const DepTypeReporter = require('../../src/Reporters/DependencyTypeReporter')
+const RemediationTypeReporter = require('../../src/Reporters/RemediationTypeReporter')
+const SevReporter = require('../../src/Reporters/SeverityReporter')
+
+const reporterFunctions = [
+  ['DepTypeReporter', DepTypeReporter],
+  ['RemediationTypeReporter', RemediationTypeReporter],
+  ['SevReporter', SevReporter]
+]
+
 const data = require('../__fixtures__/output.json')
 
 describe('Reporters', () => {
-  describe('DependencyType reporter', () => {
-    test('correctly returns a title', () => {
+  describe('Reporter instantiation', () => {
+    test.each(reporterFunctions)(
+      '%s: constructor correctly sets data',
+      (reporterName, Reporter) => {
+        const reporter = new Reporter({
+          data,
+          pieSize: 1,
+          colorFul: false
+        })
+
+        expect(reporter.options.pieSize).toBe(1)
+        expect(reporter.options.colorFul).toBe(false)
+      }
+    )
+  })
+
+  describe('Reporter titles', () => {
+    const expectedReporterTitle = {
+      DepTypeReporter: 'Vulnerabilities by dependency source:',
+      RemediationTypeReporter: 'Vulnerabilities by remediation action:',
+      SevReporter: 'Vulnerabilities by severity:'
+    }
+
+    test.each(reporterFunctions)('%s: correctly returns a title', (reporterName, Reporter) => {
       const reporter = new Reporter({
         data
       })
 
-      expect(reporter.getTitle()).toBe('Vulnerabilities by dependency source:')
+      expect(reporter.getTitle()).toBe(expectedReporterTitle[reporterName])
     })
+  })
 
-    test('constructor correctly sets data', () => {
-      const reporter = new Reporter({
-        data,
-        pieSize: 1,
-        colorFul: false
-      })
+  describe('Reporter results', () => {
+    const expectedStringInText = {
+      DepTypeReporter: [
+        /Production Dependencies \(14\.75%\)/,
+        /Development Dependencies \(85\.25%\)/
+      ],
+      RemediationTypeReporter: [
+        /Upgradable vulnerabilities \(53\.92%\)/,
+        /Patchable vulnerabilities \(9\.22%\)/,
+        /No remediation available \(36\.87%\)/
+      ],
+      SevReporter: [
+        /High severity \(43\.32%\)/,
+        /Medium severity \(41\.01%\)/,
+        /Low severity \(15\.67%\)/
+      ]
+    }
 
-      expect(reporter.options.pieSize).toBe(1)
-      expect(reporter.options.colorFul).toBe(false)
-    })
-
-    test('returns a piechart string', () => {
+    test.each(reporterFunctions)('%s: returns a piechart string', (reporterName, Reporter) => {
       const reporter = new Reporter({
         data
       })
-
-      const expectedProdDepsString = /Production Dependencies \(14\.75%\)/
-      const expectedDevDepsString = /Development Dependencies \(85\.25%\)/
 
       const pieChartString = reporter.getResult()
-      expect(pieChartString).toMatch(expectedProdDepsString)
-      expect(pieChartString).toMatch(expectedDevDepsString)
+
+      expectedStringInText[reporterName].forEach(regexPattern => {
+        expect(pieChartString).toMatch(regexPattern)
+      })
     })
   })
 })
