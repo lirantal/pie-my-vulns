@@ -30,7 +30,9 @@ Visualize your project security vulnerabilities as a pie chart in the terminal
 
 # Usage
 
-Using Node.js's `npx` to scan security vulnerabilities in an existing Node.js or JavaScript project direcctory (a `package.json` is required)
+## Command line
+
+Using Node.js's npx command to run a one-off scan inside a project's directory:
 
 ```bash
 npx pie-my-vulns
