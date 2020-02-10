@@ -41,6 +41,13 @@ class Audit {
       // allow for 50MB of buffer for a large JSON output
       await ExecFile(auditCliCommand, ['test', '--json'], { maxBuffer: JSON_BUFFER_SIZE })
     } catch (error) {
+      const errorMessage = error.stdout
+
+      // error: can't detect package manifest
+      if (errorMessage && errorMessage.indexOf('Could not detect supported target files') !== -1) {
+        throw new Error(`can't detect package manifest files\ntry running in the project's rootdir`)
+      }
+
       if (error.code === ERROR_VULNS_FOUND) {
         // we are authenticated as a user for Snyk
         // but vulnerabilities have been found
