@@ -44,6 +44,7 @@ function printError(error) {
 
   console.error()
   console.error(`Unexpected failure: ${error.message}`)
+  console.error()
   console.error(`To enable debug information invoke the CLI with a DEBUG=pie* prefix.`)
   console.error()
   console.error(`Please open an issue at: ${githubIssueURL}`)
