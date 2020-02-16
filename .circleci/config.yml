@@ -59,6 +59,9 @@ jobs:
       - attach_workspace:
           at: ./
       - run:
+          name: install
+          command: npm install --ignore-engines
+      - run:
           name: test
           command: npm run test
 
