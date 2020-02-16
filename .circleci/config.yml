@@ -94,7 +94,9 @@ jobs:
             cd NodeGoat
             npm install --ignore-engines
             echo "{ \"api\": \"${SNYK_TEST_TOKEN}\" }" > ~/.config/configstore/snyk.json
-            npx pie-my-vulns; [[ $? = 2 ]] && exit 0 || exit 1
+            set +e
+            npx pie-my-vulns
+            [[ $? = 2 ]] && exit 0 || exit 1
 
   release:
     working_directory: ~/project
