@@ -63,6 +63,39 @@ jobs:
           name: test
           command: npm run test
 
+  test-e2e-linux:
+    working_directory: ~/project
+    docker:
+      - image: circleci/node:12
+      - image: verdaccio/verdaccio:4
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ./
+      - run:
+          name: npm-verbosity
+          command: npm config set loglevel verbose
+      - run:
+          name: npm-set-registry
+          command: npm set registry http://0.0.0.0:4873
+      - run:
+          name: create-registry-user
+          command: |
+            curl -X PUT http://0.0.0.0:4873/-/user/org.couchdb.user:liran -H "Content-Type: application/json" -d '{"name":"liran","password":"liran","email":"liran@example.com","type":"user"}' | node -pe 'JSON.parse(fs.readFileSync(0)).token' | xargs npm config set _authToken
+      - run:
+          name: npm-publish
+          command: npm publish --verbose
+      - run:
+          name: npx-pie-my-vulns
+          command: |
+            mkdir ~/tmp-project
+            cd ~/tmp-project
+            git clone git@github.com:OWASP/NodeGoat.git
+            cd NodeGoat
+            npm install --ignore-engines
+            echo "{ \"api\": \"${SNYK_TEST_TOKEN}\" }" > ~/.config/configstore/snyk.json
+            npx pie-my-vulns 
+
   release:
     working_directory: ~/project
     docker:
@@ -89,11 +122,14 @@ workflows:
       - test_windows:
           requires:
             - lint
+      - test-e2e-linux:
+          requires:
+            - test_linux
+            - test_windows
       - release:
           filters:
             branches:
               only:
                 - master
           requires:
-            - test_linux
-            - test_windows
+            - test-e2e-linux
