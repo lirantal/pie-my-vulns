@@ -7,8 +7,8 @@ const SeverityReporter = require('../src/Reporters/SeverityReporter')
 const RemediationTypeReporter = require('../src/Reporters/RemediationTypeReporter')
 const DependencyTypeReporter = require('../src/Reporters/DependencyTypeReporter')
 
-const EXIT_CODE_ERROR = 2
-const EXIT_CODE_VULNS = 1
+const EXIT_CODE_ERROR = 1
+const EXIT_CODE_VULNS = 2
 const EXIT_CODE_VULNS_NONE = 0
 const reportsList = [SeverityReporter, DependencyTypeReporter, RemediationTypeReporter]
 
