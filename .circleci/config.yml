@@ -1,4 +1,8 @@
 version: 2.1
+
+orbs:
+  win: circleci/windows@2
+ 
 jobs:
   build:
     working_directory: ~/project
@@ -32,7 +36,7 @@ jobs:
           name: lint
           command: npm run lint
 
-  test:
+  test_linux:
     working_directory: ~/project
     docker:
       - image: circleci/node:12
@@ -46,6 +50,17 @@ jobs:
       - run:
           name: coverage
           command: npx codecov
+          
+  test_windows:
+    executor: win/default
+    working_directory: ~/project
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ./
+      - run:
+          name: test
+          command: npm run test
 
   release:
     working_directory: ~/project
@@ -67,7 +82,10 @@ workflows:
       - lint:
           requires:
             - build
-      - test:
+      - test_linux:
+          requires:
+            - lint
+      - test_windows:
           requires:
             - lint
       - release:
@@ -76,4 +94,5 @@ workflows:
               only:
                 - master
           requires:
-            - test
+            - test_linux
+            - test_windows
