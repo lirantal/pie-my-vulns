@@ -56,8 +56,6 @@ jobs:
     working_directory: ~/project
     steps:
       - checkout
-      - attach_workspace:
-          at: ./
       - run:
           name: install
           command: npm install --ignore-engines
