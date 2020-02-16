@@ -1,10 +1,12 @@
 /* eslint-disable security/detect-child-process */
 'use strict'
 
+const path = require('path')
 const Util = require('util')
 const ChildProcess = require('child_process')
 
-const auditCliCommand = `${__dirname}/../node_modules/snyk/dist/cli/index.js`
+const nodeCliCommand = 'node'
+const auditCliCommand = path.join(__dirname, '../node_modules/snyk/dist/cli/index.js')
 const ERROR_VULNS_FOUND = 1
 const ERROR_UNAUTHENTICATED = 2
 const JSON_BUFFER_SIZE = 50 * 1024 * 1024
@@ -12,7 +14,7 @@ const JSON_BUFFER_SIZE = 50 * 1024 * 1024
 class Audit {
   async authenticate() {
     return new Promise((resolve, reject) => {
-      const process = ChildProcess.execFile(auditCliCommand, ['auth'])
+      const process = ChildProcess.execFile(nodeCliCommand, [auditCliCommand, 'auth'])
       process.stdout.on('data', chunk => {
         const httpsLinkMatch = chunk.match(/https:\/\/.*/g)
         if (httpsLinkMatch && httpsLinkMatch.length > 0) {
@@ -39,7 +41,9 @@ class Audit {
 
     try {
       // allow for 50MB of buffer for a large JSON output
-      await ExecFile(auditCliCommand, ['test', '--json'], { maxBuffer: JSON_BUFFER_SIZE })
+      await ExecFile(nodeCliCommand, [auditCliCommand, 'test', '--json'], {
+        maxBuffer: JSON_BUFFER_SIZE
+      })
     } catch (error) {
       const errorMessage = error.stdout
 
