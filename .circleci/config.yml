@@ -88,7 +88,7 @@ jobs:
       - run:
           name: npx-pie-my-vulns
           command: |
-            cd __e2e__/project1
+            cd __tests__/__e2e__/project1
             npm install --ignore-engines
             echo "{ \"api\": \"${SNYK_TEST_TOKEN}\" }" > ~/.config/configstore/snyk.json
             set +e
