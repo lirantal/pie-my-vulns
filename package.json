@@ -13,7 +13,8 @@
     "lint:lockfile": "lockfile-lint --path package-lock.json --type npm --validate-https --allowed-hosts npm yarn",
     "lint:fix": "eslint . --fix",
     "format": "prettier --config .prettierrc.js --write '**/*.js'",
-    "test": "jest",
+    "test": "jest -c jest.default.js",
+    "test:e2e": "jest -c jest.e2e.js",
     "test:watch": "jest --watch",
     "coverage:view": "open-cli coverage/lcov-report/index.html",
     "semantic-release": "semantic-release"
@@ -74,30 +75,6 @@
     "open-cli": "^5.0.0",
     "prettier": "^1.18.2",
     "semantic-release": "^15.13.19"
-  },
-  "jest": {
-    "testEnvironment": "node",
-    "verbose": true,
-    "notify": true,
-    "collectCoverage": true,
-    "coverageThreshold": {
-      "global": {
-        "branches": 80,
-        "functions": 80,
-        "lines": 80,
-        "statements": 80
-      }
-    },
-    "testPathIgnorePatterns": [
-      "/__tests__/.*/__fixtures__/.*"
-    ],
-    "collectCoverageFrom": [
-      "index.js",
-      "src/**/*.{js,ts}"
-    ],
-    "testMatch": [
-      "**/*.test.js"
-    ]
   },
   "husky": {
     "hooks": {
