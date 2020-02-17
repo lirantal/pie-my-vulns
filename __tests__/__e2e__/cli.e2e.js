@@ -3,10 +3,16 @@ const path = require('path')
 const util = require('util')
 const childProcess = require('child_process')
 const spawnAsync = util.promisify(childProcess.execFile)
+const exec = childProcess.execSync
 
 const cliBinPath = path.join(__dirname, '../../bin/pie-my-vulns.js')
 
 describe('End-to-End CLI', () => {
+  beforeAll(() => {
+    const cmdForToken = `npx snyk config set "api=$SNYK_TEST_TOKEN"`
+    exec(cmdForToken)
+  })
+
   test('CLI should return error code 2 when vulnerabilities are found', async () => {
     expect.assertions(1)
 
