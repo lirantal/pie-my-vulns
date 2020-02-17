@@ -52,6 +52,10 @@ class Audit {
         throw new Error(`can't detect package manifest files\ntry running in the project's rootdir`)
       }
 
+      if (errorMessage && errorMessage.indexOf("we can't test without dependencies") !== -1) {
+        throw new Error(`missing node_modules folders\ninstall dependencies and try again`)
+      }
+
       if (error.code === ERROR_VULNS_FOUND) {
         // we are authenticated as a user for Snyk
         // but vulnerabilities have been found

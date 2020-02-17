@@ -111,4 +111,50 @@ describe('Audit', () => {
     expect(audit.authenticate).toHaveBeenCalled()
     spy.mockRestore()
   })
+
+  test('when test() throws an error about supported target files', async () => {
+    expect.assertions(2)
+    execFile.mockImplementation(
+      jest.fn((file, args, options, callback) => {
+        const err = new Error()
+        err.code = 1
+        err.stdout = 'Could not detect supported target files'
+        return callback(err)
+      })
+    )
+
+    const audit = new Audit()
+    try {
+      await audit.test()
+    } catch (err) {
+      expect(err.message).toContain(
+        `can't detect package manifest files\ntry running in the project's rootdir`
+      )
+    }
+
+    expect(execFile).toHaveBeenCalled()
+  })
+
+  test('when test() throws an error about deps not being available', async () => {
+    expect.assertions(2)
+    execFile.mockImplementation(
+      jest.fn((file, args, options, callback) => {
+        const err = new Error()
+        err.code = 1
+        err.stdout = "we can't test without dependencies"
+        return callback(err)
+      })
+    )
+
+    const audit = new Audit()
+    try {
+      await audit.test()
+    } catch (err) {
+      expect(err.message).toContain(
+        `missing node_modules folders\ninstall dependencies and try again`
+      )
+    }
+
+    expect(execFile).toHaveBeenCalled()
+  })
 })
