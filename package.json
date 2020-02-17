@@ -13,7 +13,7 @@
     "lint:lockfile": "lockfile-lint --path package-lock.json --type npm --validate-https --allowed-hosts npm yarn",
     "lint:fix": "eslint . --fix",
     "format": "prettier --config .prettierrc.js --write '**/*.js'",
-    "test": "jest -c jest.default.js",
+    "test": "jest -c jest.default.js && jest -c jest.default.js",
     "test:e2e": "jest -c jest.e2e.js",
     "test:watch": "jest --watch",
     "coverage:view": "open-cli coverage/lcov-report/index.html",
