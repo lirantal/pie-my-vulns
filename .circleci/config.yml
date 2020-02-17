@@ -90,7 +90,7 @@ jobs:
           command: |
             cd __tests__/__e2e__/project1
             npm install --ignore-engines
-            echo "{ \"api\": \"${SNYK_TEST_TOKEN}\" }" > ~/.config/configstore/snyk.json
+            npx snyk config set "api=${SNYK_TEST_TOKEN}"
             set +e
             npx pie-my-vulns
             [[ $? = 2 ]] && exit 0 || exit 1
