@@ -19,7 +19,10 @@ class DependencyTypeReporter {
 
   getResult() {
     const depTypeParser = new DependencyTypeParser(this.data)
-    depTypeParser.parse()
+    const res = depTypeParser.parse()
+    if (res === false) {
+      return false
+    }
 
     var pieChart = new Pie(
       this.options.pieSize,

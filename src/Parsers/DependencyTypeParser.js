@@ -1,3 +1,4 @@
+/* eslint-disable no-prototype-builtins */
 'use strict'
 
 class DependencyTypeParser {
@@ -12,6 +13,11 @@ class DependencyTypeParser {
   parse() {
     if (!this.vulnsData.vulnerabilities) {
       return this.vulnsMap
+    }
+
+    const vulnItemScarce = this.vulnsData.vulnerabilities[0]
+    if (vulnItemScarce.hasOwnProperty('parentDepType') !== true) {
+      return false
     }
 
     this.vulnsData.vulnerabilities.map(vulnItem => {

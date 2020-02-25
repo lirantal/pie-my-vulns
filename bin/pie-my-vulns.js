@@ -29,9 +29,11 @@ async function main() {
     })
 
     const stdoutText = reporter.getResult()
-    console.log(reporter.getTitle())
-    console.log(stdoutText)
-    console.log()
+    if (stdoutText !== false) {
+      console.log(reporter.getTitle())
+      console.log(stdoutText)
+      console.log()
+    }
   })
 
   isVulnerabilitiesDetected(vulnerabilitiesResult)
