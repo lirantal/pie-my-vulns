@@ -2,7 +2,7 @@
 
 const Pie = require('cli-pie')
 const DependencyTypeParser = require('../Parsers/DependencyTypeParser')
-const DEFAULT_PIE_SIZE = 2
+const DEFAULT_PIE_SIZE = 4
 
 class DependencyTypeReporter {
   constructor({ data, pieSize, colorFul }) {

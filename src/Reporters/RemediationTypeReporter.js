@@ -2,7 +2,7 @@
 
 const Pie = require('cli-pie')
 const RemediationTypeParser = require('../Parsers/RemediationTypeParser')
-const DEFAULT_PIE_SIZE = 2
+const DEFAULT_PIE_SIZE = 4
 
 class RemediationTypeReporter {
   constructor({ data, pieSize, colorFul }) {
