@@ -62,8 +62,11 @@ describe('End-to-End CLI', () => {
   })
 
   test('CLI should return error code 0 when no vulnerabilities are found', async () => {
-    await spawnAsync('node', [cliBinPath], {
+    const { stdout, err } = await spawnAsync('node', [cliBinPath], {
       cwd: path.join(__dirname, 'project3')
     })
+
+    expect(err).toBe(undefined)
+    expect(stdout).toContain('0 vulnerabilities found')
   })
 })

@@ -22,6 +22,12 @@ async function main() {
   }
 
   console.log()
+
+  if (!isVulnerabilitiesDetected(vulnerabilitiesResult)) {
+    console.log('0 vulnerabilities found')
+    process.exit(EXIT_CODE_VULNS_NONE)
+  }
+
   reportsList.forEach(Reporter => {
     const reporter = new Reporter({
       data: vulnerabilitiesResult,
@@ -36,9 +42,7 @@ async function main() {
     }
   })
 
-  isVulnerabilitiesDetected(vulnerabilitiesResult)
-    ? process.exit(EXIT_CODE_VULNS)
-    : process.exit(EXIT_CODE_VULNS_NONE)
+  process.exit(EXIT_CODE_VULNS)
 }
 
 function printError(error) {
