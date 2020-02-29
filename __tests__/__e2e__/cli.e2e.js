@@ -26,7 +26,7 @@ describe('End-to-End CLI', () => {
   })
 
   test('CLI should show vulnerabilities breakdown numbers and their titles', async () => {
-    expect.assertions(11)
+    expect.assertions(7)
 
     try {
       await spawnAsync('node', [cliBinPath], {
@@ -36,14 +36,10 @@ describe('End-to-End CLI', () => {
       expect(err.stdout).toContain('Medium severity (20.00%)')
       expect(err.stdout).toContain('High severity (0.00%)')
       expect(err.stdout).toContain('Low severity (80.00%)')
-      expect(err.stdout).toContain('Production Dependencies (0.00%)')
-      expect(err.stdout).toContain('Development Dependencies (100.00%)')
-      expect(err.stdout).toContain('Upgradable vulnerabilities (100.00%)')
       expect(err.stdout).toContain('Patchable vulnerabilities (0.00%)')
       expect(err.stdout).toContain('No remediation available (0.00%)')
 
       expect(err.stdout).toContain('Vulnerabilities by severity:')
-      expect(err.stdout).toContain('Vulnerabilities by dependency source:')
       expect(err.stdout).toContain('Vulnerabilities by remediation action:')
     }
   })
