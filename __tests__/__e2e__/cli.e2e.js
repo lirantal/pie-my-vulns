@@ -4,6 +4,7 @@ const util = require('util')
 const childProcess = require('child_process')
 const spawnAsync = util.promisify(childProcess.execFile)
 const exec = childProcess.execSync
+const snykJson = require('./test')
 
 const cliBinPath = path.join(__dirname, '../../bin/pie-my-vulns.js')
 
@@ -65,4 +66,15 @@ describe('End-to-End CLI', () => {
     expect(err).toBe(undefined)
     expect(stdout).toContain('0 vulnerabilities found')
   })
+
+  test('CLI should be able to read Snyk Json from stdin', async () => {
+    expect.assertions(1)
+
+    try {
+      await spawnAsync('node', [cliBinPath, JSON.stringify(snykJson)])
+    } catch (err) {
+      expect(err.code).toBe(2) // means that vulnerabilities were found
+    }
+  })
+
 })

@@ -14,11 +14,20 @@ const reportsList = [SeverityReporter, DependencyTypeReporter, RemediationTypeRe
 
 async function main() {
   let vulnerabilitiesResult
-  const audit = new Audit()
-  try {
-    vulnerabilitiesResult = await audit.test()
-  } catch (error) {
-    printError(error)
+  let args = process.argv.slice(2);
+  if (args.length > 0){
+    try {
+        vulnerabilitiesResult = await JSON.parse(args[0])
+    } catch (error) {
+        printError(error)
+    }
+  } else {
+    const audit = new Audit()
+    try {
+        vulnerabilitiesResult = await audit.test()
+    } catch (error) {
+        printError(error)
+    }
   }
 
   console.log()
