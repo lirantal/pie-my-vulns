@@ -44,7 +44,7 @@
   },
   "dependencies": {
     "cli-pie": "^2.4.1",
-    "snyk": "^1.294.1"
+    "snyk": "^1.295.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^7.2.1",
