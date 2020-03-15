@@ -1,5 +1,8 @@
 version: '1.0'
 steps:
+  main_clone:
+    type: git-clone
+    repo:  lirantal/pie-my-vulns
   BuildingDockerImage:
     title: Building Docker Image
     type: build
@@ -16,4 +19,5 @@ steps:
         branch:
           only:
             - master
+
 
