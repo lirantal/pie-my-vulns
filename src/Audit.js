@@ -7,6 +7,7 @@ const ChildProcess = require('child_process')
 
 const nodeCliCommand = 'node'
 const auditCliCommand = path.join(__dirname, '../node_modules/snyk/dist/cli/index.js')
+const auditCliArgs = [auditCliCommand, 'test', '--json']
 const ERROR_VULNS_FOUND = 1
 const ERROR_UNAUTHENTICATED = 2
 const JSON_BUFFER_SIZE = 50 * 1024 * 1024
@@ -35,13 +36,13 @@ class Audit {
     })
   }
 
-  async test() {
+  async test({ directory = '' } = {}) {
     const ExecFile = Util.promisify(ChildProcess.execFile)
+    const args = [...auditCliArgs, ...(directory ? [directory] : [])]
     let testResults = []
-
     try {
       // allow for 50MB of buffer for a large JSON output
-      await ExecFile(nodeCliCommand, [auditCliCommand, 'test', '--json'], {
+      await ExecFile(nodeCliCommand, args, {
         maxBuffer: JSON_BUFFER_SIZE
       })
     } catch (error) {

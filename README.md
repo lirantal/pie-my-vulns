@@ -38,6 +38,12 @@ Using Node.js's npx command to run a one-off scan inside a project's directory:
 npx pie-my-vulns
 ```
 
+To scan a specific project directory use the `--directory` option, for example:
+
+```bash
+npx pie-my-vulns --directory=path/to/project/dir
+```
+
 # Install
 
 You can install globally via:

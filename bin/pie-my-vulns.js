@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 /* eslint-disable no-process-exit */
 'use strict'
+const parseArgs = require('minimist')
 
 const Audit = require('../src/Audit')
 const SeverityReporter = require('../src/Reporters/SeverityReporter')
@@ -13,10 +14,12 @@ const EXIT_CODE_VULNS_NONE = 0
 const reportsList = [SeverityReporter, DependencyTypeReporter, RemediationTypeReporter]
 
 async function main() {
+  const argv = parseArgs(process.argv.slice(2))
+  const { directory } = argv
   let vulnerabilitiesResult
   const audit = new Audit()
   try {
-    vulnerabilitiesResult = await audit.test()
+    vulnerabilitiesResult = await audit.test({ directory })
   } catch (error) {
     printError(error)
   }
