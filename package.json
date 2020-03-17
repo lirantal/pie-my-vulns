@@ -45,6 +45,7 @@
   "dependencies": {
     "cli-pie": "^2.4.1",
     "minimist": "1.2.2",
+    "debug": "^4.1.1",
     "snyk": "^1.299.0"
   },
   "devDependencies": {
