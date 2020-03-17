@@ -42,6 +42,10 @@ async function main() {
     }
   })
 
+  console.log(
+    `Total number of vulnerabilities found: ${vulnerabilitiesResult.vulnerabilities.length}\n`
+  )
+
   process.exit(EXIT_CODE_VULNS)
 }
 
