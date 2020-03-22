@@ -23,7 +23,8 @@ describe('End-to-End CLI', () => {
     } catch (err) {
       expect(err.code).toBe(2) // means that vulnerabilities were found
       console.log(err)
-      console.log(err.message)
+      console.log(err && err.stdout)
+      console.log(err && err.stderr)
     }
   })
 
@@ -36,7 +37,8 @@ describe('End-to-End CLI', () => {
       })
     } catch (err) {
       console.log(err)
-      console.log(err.message)
+      console.log(err && err.stdout)
+      console.log(err && err.stderr)
       expect(err.stdout).toContain('Medium severity (20.00%)')
       expect(err.stdout).toContain('High severity (0.00%)')
       expect(err.stdout).toContain('Low severity (80.00%)')
@@ -58,7 +60,8 @@ describe('End-to-End CLI', () => {
       })
     } catch (err) {
       console.log(err)
-      console.log(err.message)
+      console.log(err && err.stdout)
+      console.log(err && err.stderr)
       expect(err.code).toBe(1)
       expect(err.stderr).toContain('Unexpected failure: missing node_modules folders')
     }
@@ -69,7 +72,8 @@ describe('End-to-End CLI', () => {
       cwd: path.join(__dirname, 'project3')
     })
     console.log(err)
-    console.log(err.message)
+    console.log(err && err.stdout)
+    console.log(err && err.stderr)
     console.log(stdout)
     expect(err).toBe(undefined)
     expect(stdout).toContain('0 vulnerabilities found')
