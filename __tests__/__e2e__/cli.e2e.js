@@ -36,7 +36,7 @@ describe('End-to-End CLI', () => {
       })
     } catch (err) {
       console.log(err)
-      console.log(err.message)      
+      console.log(err.message)
       expect(err.stdout).toContain('Medium severity (20.00%)')
       expect(err.stdout).toContain('High severity (0.00%)')
       expect(err.stdout).toContain('Low severity (80.00%)')
@@ -58,7 +58,7 @@ describe('End-to-End CLI', () => {
       })
     } catch (err) {
       console.log(err)
-      console.log(err.message)      
+      console.log(err.message)
       expect(err.code).toBe(1)
       expect(err.stderr).toContain('Unexpected failure: missing node_modules folders')
     }
