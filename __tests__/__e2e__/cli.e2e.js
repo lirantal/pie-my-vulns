@@ -35,16 +35,13 @@ describe('End-to-End CLI', () => {
         cwd: path.join(__dirname, 'project1')
       })
     } catch (err) {
-      
       console.log(err)
-      console.log(err.message)
-      
+      console.log(err.message)      
       expect(err.stdout).toContain('Medium severity (20.00%)')
       expect(err.stdout).toContain('High severity (0.00%)')
       expect(err.stdout).toContain('Low severity (80.00%)')
       expect(err.stdout).toContain('Patchable vulnerabilities (0.00%)')
       expect(err.stdout).toContain('No remediation available (0.00%)')
-
       expect(err.stdout).toContain('Total number of vulnerabilities found:')
       expect(err.stdout).toContain('Number of dependencies scanned:')
       expect(err.stdout).toContain('Vulnerabilities by severity:')
@@ -60,10 +57,8 @@ describe('End-to-End CLI', () => {
         cwd: path.join(__dirname, 'project2')
       })
     } catch (err) {
-      
       console.log(err)
-      console.log(err.message)
-      
+      console.log(err.message)      
       expect(err.code).toBe(1)
       expect(err.stderr).toContain('Unexpected failure: missing node_modules folders')
     }
@@ -73,11 +68,9 @@ describe('End-to-End CLI', () => {
     const { stdout, err } = await spawnAsync('node', [cliBinPath], {
       cwd: path.join(__dirname, 'project3')
     })
-
-      console.log(err)
-      console.log(err.message)
-      console.log(stdout)
-    
+    console.log(err)
+    console.log(err.message)
+    console.log(stdout)
     expect(err).toBe(undefined)
     expect(stdout).toContain('0 vulnerabilities found')
   })
