@@ -70,7 +70,7 @@ describe('End-to-End CLI', () => {
 
   test('CLI should accept path to project directory from command argument', async () => {
     const project3Dir = path.join(__dirname, 'project3')
-    const { stdout, err } = await spawnAsync('node', [cliBinPath, `--directory=${project3Dir}`], {
+    const { stdout, err } = await spawnAsync('node', [cliBinPath, '--directory', project3Dir], {
       cwd: path.join(__dirname, 'project1')
     })
 
