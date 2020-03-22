@@ -26,7 +26,7 @@ describe('End-to-End CLI', () => {
   })
 
   test('CLI should show vulnerabilities breakdown numbers and their titles', async () => {
-    expect.assertions(8)
+    expect.assertions(9)
 
     try {
       await spawnAsync('node', [cliBinPath], {
