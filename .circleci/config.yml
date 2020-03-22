@@ -48,6 +48,9 @@ jobs:
           name: test
           command: npm run test
       - run:
+          name: test_e2e
+          command: npm run test:e2e
+      - run:
           name: coverage
           command: npx codecov
 
@@ -62,6 +65,9 @@ jobs:
       - run:
           name: test
           command: npm run test
+      - run:
+          name: test_e2e
+          command: npm run test:e2e
 
   test-e2e-linux:
     working_directory: ~/project
