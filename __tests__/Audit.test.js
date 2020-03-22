@@ -54,7 +54,9 @@ describe('Audit', () => {
     await audit.authenticate()
 
     expect(execFile).toHaveBeenCalled()
-    expect(execFile).toHaveBeenCalledWith('node', [expect.anything(), 'auth'])
+    expect(execFile).toHaveBeenCalledWith('node', [expect.anything(), 'auth'], {
+      env: expect.any(Object)
+    })
     expect(console.log.mock.calls).toEqual([
       [],
       ['or you can hit this link:'],

@@ -3,6 +3,7 @@
 'use strict'
 const parseArgs = require('minimist')
 
+const debug = require('debug')('pie-my-vulns')
 const Audit = require('../src/Audit')
 const SeverityReporter = require('../src/Reporters/SeverityReporter')
 const RemediationTypeReporter = require('../src/Reporters/RemediationTypeReporter')
@@ -57,6 +58,7 @@ async function main() {
 function printError(error) {
   const githubIssueURL = 'https://github.com/lirantal/pie-my-vulns/issues'
 
+  debug(error)
   console.error()
   console.error(`Unexpected failure: ${error.message}`)
   console.error()

@@ -12,10 +12,18 @@ const ERROR_VULNS_FOUND = 1
 const ERROR_UNAUTHENTICATED = 2
 const JSON_BUFFER_SIZE = 50 * 1024 * 1024
 
+const shellEnvVariables = Object.assign({}, process.env, {
+  SNYK_UTM_MEDIUM: 'cli',
+  SNYK_UTM_SOURCE: 'cli',
+  SNYK_UTM_CAMPAIGN: 'pie-my-vulns'
+})
+
 class Audit {
   async authenticate() {
     return new Promise((resolve, reject) => {
-      const process = ChildProcess.execFile(nodeCliCommand, [auditCliCommand, 'auth'])
+      const process = ChildProcess.execFile(nodeCliCommand, [auditCliCommand, 'auth'], {
+        env: shellEnvVariables
+      })
       process.stdout.on('data', chunk => {
         const httpsLinkMatch = chunk.match(/https:\/\/.*/g)
         if (httpsLinkMatch && httpsLinkMatch.length > 0) {
@@ -43,7 +51,8 @@ class Audit {
     try {
       // allow for 50MB of buffer for a large JSON output
       await ExecFile(nodeCliCommand, args, {
-        maxBuffer: JSON_BUFFER_SIZE
+        maxBuffer: JSON_BUFFER_SIZE,
+        env: shellEnvVariables
       })
     } catch (error) {
       const errorMessage = error.stdout
