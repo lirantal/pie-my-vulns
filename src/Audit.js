@@ -1,5 +1,6 @@
 /* eslint-disable security/detect-child-process */
 'use strict'
+const Ora = require('ora')
 
 const path = require('path')
 const Util = require('util')
@@ -45,6 +46,10 @@ class Audit {
   }
 
   async test({ directory = '' } = {}) {
+    const testSpinner = new Ora({})
+    console.log()
+    testSpinner.start('Scanning project dependencies')
+
     const ExecFile = Util.promisify(ChildProcess.execFile)
     const args = [...auditCliArgs, ...(directory ? [directory] : [])]
     let testResults = []
@@ -59,10 +64,12 @@ class Audit {
 
       // error: can't detect package manifest
       if (errorMessage && errorMessage.indexOf('Could not detect supported target files') !== -1) {
+        testSpinner.fail('Scan failed')
         throw new Error(`can't detect package manifest files\ntry running in the project's rootdir`)
       }
 
       if (errorMessage && errorMessage.indexOf("we can't test without dependencies") !== -1) {
+        testSpinner.fail('Scan failed')
         throw new Error(`missing node_modules folders\ninstall dependencies and try again`)
       }
 
@@ -73,6 +80,7 @@ class Audit {
       } else if (error.code === ERROR_UNAUTHENTICATED) {
         // user is not authenticated and we need
         // to trigger the auth process
+        testSpinner.stop()
 
         console.log(`Seems like you're not authenticated to Snyk,`)
         console.log(`so redirecting you now and after login I'll show scan results here`)
@@ -83,6 +91,7 @@ class Audit {
       }
     }
 
+    testSpinner.succeed('Scan completed successfully')
     return testResults
   }
 }

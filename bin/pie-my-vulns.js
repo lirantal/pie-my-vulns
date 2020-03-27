@@ -46,11 +46,13 @@ async function main() {
     }
   })
 
+  console.log('Summary:')
   console.log(
-    `Total number of vulnerabilities found: ${vulnerabilitiesResult.vulnerabilities.length}\n`
+    `  - [${vulnerabilitiesResult.vulnerabilities.length}] Total number of vulnerabilities found`
   )
-
-  console.log(`Number of dependencies scanned: ${vulnerabilitiesResult.dependencyCount}\n`)
+  console.log(
+    `  - [${vulnerabilitiesResult.dependencyCount}] Total number of dependencies scanned\n`
+  )
 
   process.exit(EXIT_CODE_VULNS)
 }
