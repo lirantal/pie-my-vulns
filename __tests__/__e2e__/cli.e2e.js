@@ -44,7 +44,6 @@ describe('End-to-End CLI', () => {
       expect(err.stdout).toContain('Low severity (80.00%)')
       expect(err.stdout).toContain('Patchable vulnerabilities (0.00%)')
       expect(err.stdout).toContain('No remediation available (0.00%)')
-      expect(err.stdout).toContain('Scan completed successfully')
       expect(err.stdout).toContain('Total number of vulnerabilities found')
       expect(err.stdout).toContain('Total number of dependencies scanned')
       expect(err.stdout).toContain('Vulnerabilities by severity:')
