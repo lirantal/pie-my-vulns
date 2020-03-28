@@ -17,7 +17,7 @@
 </p>
 
 <p align="center">
-  <img src="./.github/pie-my-vulns-logo.svg" height="150px" alt="Screenshot of npm module called pie-my-vulns that draws pie charts in the terminal reflecting security vulnerabilities found in JavaScript and Node.js projects based on Snyk vulnerability database" />
+  <img src="https://github.com/lirantal/pie-my-vulns/raw/master/.github/pie-my-vulns-screenshot.png" height="640px" alt="Screenshot of npm module called pie-my-vulns that draws pie charts in the terminal reflecting security vulnerabilities found in JavaScript and Node.js projects based on Snyk vulnerability database" />
   
   <p align="center">
   	<p align="center">Many thanks to <a href="https://snyk.io"><img src="./.github/snyk-logo.png" width="100"></a> for supporting open source security</p>
