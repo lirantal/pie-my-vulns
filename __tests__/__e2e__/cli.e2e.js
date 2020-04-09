@@ -5,12 +5,16 @@ const childProcess = require('child_process')
 const spawnAsync = util.promisify(childProcess.execFile)
 const exec = childProcess.execSync
 
+// wait 1.5 minutes on each test case
+jest.setTimeout(90000)
+
 const cliBinPath = path.join(__dirname, '../../bin/pie-my-vulns.js')
 
 describe('End-to-End CLI', () => {
   beforeAll(() => {
     const cmdForToken = `npx snyk config set "api=$SNYK_TEST_TOKEN"`
-    exec(cmdForToken)
+    const res = exec(cmdForToken)
+    console.log(res.toString())
   })
 
   test('CLI should return error code 2 when vulnerabilities are found', async () => {
