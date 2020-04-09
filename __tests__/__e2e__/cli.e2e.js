@@ -4,6 +4,7 @@ const util = require('util')
 const childProcess = require('child_process')
 const spawnAsync = util.promisify(childProcess.execFile)
 const exec = childProcess.execSync
+const spawnSync = childProcess.spawnSync
 
 // wait 1.5 minutes on each test case
 jest.setTimeout(90000)
@@ -17,19 +18,35 @@ describe('End-to-End CLI', () => {
     console.log(res.toString())
   })
 
-  test('CLI should return error code 2 when vulnerabilities are found', async () => {
+  test('CLI should return error code 2 when vulnerabilities are found', () => {
+    /* eslint-disable */
     expect.assertions(1)
 
     try {
-      await spawnAsync('node', [cliBinPath], {
+      const res = spawnSync('node', [cliBinPath], {
         cwd: path.join(__dirname, 'project1')
       })
-    } catch (err) {
-      expect(err.code).toBe(2) // means that vulnerabilities were found
+    } catch(err) {
+      console.log('error detected:')
+      console.log(err) 
       console.log(err)
       console.log(err && err.stdout)
       console.log(err && err.stderr)
     }
+    
+    console.log(res)
+    
+//     try {
+//       await spawnAsync('node', [cliBinPath], {
+//         cwd: path.join(__dirname, 'project1')
+//       })
+//     } catch (err) {
+//       expect(err.code).toBe(2) // means that vulnerabilities were found
+//       console.log(err)
+//       console.log(err && err.stdout)
+//       console.log(err && err.stderr)
+//     }
+    /* eslint-enable */
   })
 
   test('CLI should show vulnerabilities breakdown numbers and their titles', async () => {
