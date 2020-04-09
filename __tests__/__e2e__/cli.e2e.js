@@ -32,8 +32,6 @@ describe('End-to-End CLI', () => {
     snykCLi.stderr.on('data', (data) => {
        console.log(`stdout: ${data}`);
     });
-    
-});
 
     try {
       const res = spawnSync('node', [cliBinPath], {
