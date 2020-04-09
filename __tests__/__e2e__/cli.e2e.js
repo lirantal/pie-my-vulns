@@ -4,7 +4,6 @@ const util = require('util')
 const childProcess = require('child_process')
 const spawnAsync = util.promisify(childProcess.execFile)
 const exec = childProcess.execSync
-const spawnSync = childProcess.spawnSync
 
 // wait 1.5 minutes on each test case
 jest.setTimeout(90000)
@@ -20,7 +19,21 @@ describe('End-to-End CLI', () => {
 
   test('CLI should return error code 2 when vulnerabilities are found', () => {
     /* eslint-disable */
-    expect.assertions(1)
+//     expect.assertions(1)
+    
+    const snykCLi = childProcess.spawn('node', [cliBinPath], {
+        cwd: path.join(__dirname, 'project1'),
+        stdio: 'inherit'
+      })
+  
+    snykCLi.stdout.on('data', (data) => {
+       console.log(`stdout: ${data}`);
+    });
+    snykCLi.stderr.on('data', (data) => {
+       console.log(`stdout: ${data}`);
+    });
+    
+});
 
     try {
       const res = spawnSync('node', [cliBinPath], {
