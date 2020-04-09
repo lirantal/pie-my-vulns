@@ -4,15 +4,16 @@ const util = require('util')
 const childProcess = require('child_process')
 const spawnAsync = util.promisify(childProcess.execFile)
 const exec = childProcess.execSync
-
-// wait 1.5 minutes on each test case
-jest.setTimeout(90000)
+const os = require('os')
 
 const cliBinPath = path.join(__dirname, '../../bin/pie-my-vulns.js')
 
 describe('End-to-End CLI', () => {
   beforeAll(() => {
-    const cmdForToken = `npx snyk config set "api=$SNYK_TEST_TOKEN"`
+    let cmdForToken = `npx snyk config set "api=$SNYK_TEST_TOKEN"`
+    if (os.platform() === 'win32') {
+      cmdForToken = `npx snyk config set "api=%SNYK_TEST_TOKEN%"`
+    }
     const res = exec(cmdForToken)
     console.log(res.toString())
   })
