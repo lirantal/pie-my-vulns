@@ -1,4 +1,5 @@
 /* eslint-disable security/detect-child-process */
+const os = require('os')
 const path = require('path')
 const util = require('util')
 const childProcess = require('child_process')
@@ -9,7 +10,10 @@ const cliBinPath = path.join(__dirname, '../../bin/pie-my-vulns.js')
 
 describe('End-to-End CLI', () => {
   beforeAll(() => {
-    const cmdForToken = `npx snyk config set "api=$SNYK_TEST_TOKEN"`
+    let cmdForToken = `npx snyk config set "api=$SNYK_TEST_TOKEN"`
+    if (os.platform() === 'win32') {
+      cmdForToken = `npx snyk config set "api=%SNYK_TEST_TOKEN%"`
+    }
     exec(cmdForToken)
   })
 
@@ -26,7 +30,7 @@ describe('End-to-End CLI', () => {
   })
 
   test('CLI should show vulnerabilities breakdown numbers and their titles', async () => {
-    expect.assertions(10)
+    expect.hasAssertions()
 
     try {
       await spawnAsync('node', [cliBinPath], {
@@ -38,7 +42,6 @@ describe('End-to-End CLI', () => {
       expect(err.stdout).toContain('Low severity (80.00%)')
       expect(err.stdout).toContain('Patchable vulnerabilities (0.00%)')
       expect(err.stdout).toContain('No remediation available (0.00%)')
-      expect(err.stdout).toContain('Scan completed successfully')
       expect(err.stdout).toContain('Total number of vulnerabilities found')
       expect(err.stdout).toContain('Total number of dependencies scanned')
       expect(err.stdout).toContain('Vulnerabilities by severity:')
@@ -63,14 +66,13 @@ describe('End-to-End CLI', () => {
     const { stdout, err } = await spawnAsync('node', [cliBinPath], {
       cwd: path.join(__dirname, 'project3')
     })
-
     expect(err).toBe(undefined)
     expect(stdout).toContain('0 vulnerabilities found')
   })
 
   test('CLI should accept path to project directory from command argument', async () => {
     const project3Dir = path.join(__dirname, 'project3')
-    const { stdout, err } = await spawnAsync('node', [cliBinPath, `--directory=${project3Dir}`], {
+    const { stdout, err } = await spawnAsync('node', [cliBinPath, '--directory', project3Dir], {
       cwd: path.join(__dirname, 'project1')
     })
 
