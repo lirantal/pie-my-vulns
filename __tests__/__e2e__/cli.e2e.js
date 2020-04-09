@@ -17,7 +17,7 @@ describe('End-to-End CLI', () => {
     exec(cmdForToken)
   })
 
-  test('CLI should return error code 2 when vulnerabilities are found', () => {
+  test('CLI should return error code 2 when vulnerabilities are found', async () => {
     expect.assertions(1)
 
     try {
