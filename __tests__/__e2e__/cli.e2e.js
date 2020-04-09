@@ -1,10 +1,10 @@
 /* eslint-disable security/detect-child-process */
+const os = require('os')
 const path = require('path')
 const util = require('util')
 const childProcess = require('child_process')
 const spawnAsync = util.promisify(childProcess.execFile)
 const exec = childProcess.execSync
-const os = require('os')
 
 const cliBinPath = path.join(__dirname, '../../bin/pie-my-vulns.js')
 
@@ -14,51 +14,19 @@ describe('End-to-End CLI', () => {
     if (os.platform() === 'win32') {
       cmdForToken = `npx snyk config set "api=%SNYK_TEST_TOKEN%"`
     }
-    const res = exec(cmdForToken)
-    console.log(res.toString())
+    exec(cmdForToken)
   })
 
   test('CLI should return error code 2 when vulnerabilities are found', () => {
-    /* eslint-disable */
-//     expect.assertions(1)
-    
-    const snykCLi = childProcess.spawn('node', [cliBinPath], {
-        cwd: path.join(__dirname, 'project1'),
-        stdio: 'inherit'
-      })
-  
-    snykCLi.stdout.on('data', (data) => {
-       console.log(`stdout: ${data}`);
-    });
-    snykCLi.stderr.on('data', (data) => {
-       console.log(`stdout: ${data}`);
-    });
+    expect.assertions(1)
 
     try {
-      const res = spawnSync('node', [cliBinPath], {
+      await spawnAsync('node', [cliBinPath], {
         cwd: path.join(__dirname, 'project1')
       })
-    } catch(err) {
-      console.log('error detected:')
-      console.log(err) 
-      console.log(err)
-      console.log(err && err.stdout)
-      console.log(err && err.stderr)
+    } catch (err) {
+      expect(err.code).toBe(2) // means that vulnerabilities were found
     }
-    
-    console.log(res)
-    
-//     try {
-//       await spawnAsync('node', [cliBinPath], {
-//         cwd: path.join(__dirname, 'project1')
-//       })
-//     } catch (err) {
-//       expect(err.code).toBe(2) // means that vulnerabilities were found
-//       console.log(err)
-//       console.log(err && err.stdout)
-//       console.log(err && err.stderr)
-//     }
-    /* eslint-enable */
   })
 
   test('CLI should show vulnerabilities breakdown numbers and their titles', async () => {
@@ -69,9 +37,6 @@ describe('End-to-End CLI', () => {
         cwd: path.join(__dirname, 'project1')
       })
     } catch (err) {
-      console.log(err)
-      console.log(err && err.stdout)
-      console.log(err && err.stderr)
       expect(err.stdout).toContain('Medium severity (20.00%)')
       expect(err.stdout).toContain('High severity (0.00%)')
       expect(err.stdout).toContain('Low severity (80.00%)')
@@ -92,9 +57,6 @@ describe('End-to-End CLI', () => {
         cwd: path.join(__dirname, 'project2')
       })
     } catch (err) {
-      console.log(err)
-      console.log(err && err.stdout)
-      console.log(err && err.stderr)
       expect(err.code).toBe(1)
       expect(err.stderr).toContain('Unexpected failure: missing node_modules folders')
     }
@@ -104,10 +66,6 @@ describe('End-to-End CLI', () => {
     const { stdout, err } = await spawnAsync('node', [cliBinPath], {
       cwd: path.join(__dirname, 'project3')
     })
-    console.log(err)
-    console.log(err && err.stdout)
-    console.log(err && err.stderr)
-    console.log(stdout)
     expect(err).toBe(undefined)
     expect(stdout).toContain('0 vulnerabilities found')
   })
