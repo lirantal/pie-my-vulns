@@ -85,7 +85,7 @@ class Audit {
         console.log(`Seems like you're not authenticated to Snyk,`)
         console.log(`so redirecting you now and after login I'll show scan results here`)
         await this.authenticate()
-        return this.test()
+        return this.test({ directory })
       } else {
         throw error
       }
