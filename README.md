@@ -44,6 +44,15 @@ To scan a specific project directory use the `--directory` option, for example:
 npx pie-my-vulns --directory=path/to/project/dir
 ```
 
+## Docker container
+
+Using docker to run a one-off scan inside a docker container.
+Pass the directory to scan to the `source` environment variable:
+
+```
+docker run --mount type=bind,source=<project-directory-to-scan>,target=/tmp/tested-app pie-my-vulns
+```
+
 # Install
 
 You can install globally via:
