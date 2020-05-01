@@ -45,10 +45,14 @@ class Audit {
     })
   }
 
-  async test({ directory = '' } = {}) {
+  async test({ directory = '' } = {}, firstScan = true) {
     const testSpinner = new Ora({})
-    console.log()
-    testSpinner.start('Scanning project dependencies')
+
+    // Start the spinner only for the first invocation
+    if (firstScan) {
+      console.log()
+      testSpinner.start('Scanning project dependencies')
+    }
 
     const ExecFile = Util.promisify(ChildProcess.execFile)
     const args = [...auditCliArgs, ...(directory ? [directory] : [])]
@@ -85,7 +89,7 @@ class Audit {
         console.log(`Seems like you're not authenticated to Snyk,`)
         console.log(`so redirecting you now and after login I'll show scan results here`)
         await this.authenticate()
-        return this.test({ directory })
+        return this.test({ directory }, false)
       } else {
         throw error
       }
