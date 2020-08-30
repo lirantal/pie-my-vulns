@@ -43,7 +43,7 @@
     "url": "https://github.com/lirantal/pie-my-vulns.git"
   },
   "dependencies": {
-    "cli-pie": "^2.4.1",
+    "cli-pie": "^2.4.2",
     "minimist": "1.2.5",
     "debug": "^4.2.0",
     "snyk": "^1.305.1",
