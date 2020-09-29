@@ -79,4 +79,12 @@ describe('End-to-End CLI', () => {
     expect(err).toBe(undefined)
     expect(stdout).toContain('0 vulnerabilities found')
   })
+
+  test('CLI should be able to read Snyk JSON from stdin', async () => {
+    try {
+      await exec(`cat snyk.json | node ${cliBinPath}`)
+    } catch (err) {
+      expect(err.status).toBe(2) // means that vulnerabilities were found
+    }
+  })
 })

@@ -35,7 +35,7 @@ class Audit {
         }
       })
 
-      process.on('close', exitCode => {
+      process.on('close', () => {
         return resolve()
       })
 
