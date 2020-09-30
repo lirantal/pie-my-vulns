@@ -44,6 +44,12 @@ To scan a specific project directory use the `--directory` option, for example:
 npx pie-my-vulns --directory=path/to/project/dir
 ```
 
+To pipe existing Snyk json (obtained via `snyk test --json`) through stdin
+
+```bash
+cat snyk.json | npx pie-my-vulns
+```
+
 ## Docker container
 
 Using docker to run a one-off scan inside a docker container.
