@@ -43,11 +43,11 @@
     "url": "https://github.com/lirantal/pie-my-vulns.git"
   },
   "dependencies": {
-    "cli-pie": "^2.4.1",
+    "cli-pie": "^2.4.2",
     "minimist": "1.2.5",
-    "debug": "^4.1.1",
+    "debug": "^4.2.0",
     "snyk": "^1.306.0",
-    "ora": "4.0.3"
+    "ora": "4.0.5"
   },
   "devDependencies": {
     "@commitlint/cli": "^7.2.1",
