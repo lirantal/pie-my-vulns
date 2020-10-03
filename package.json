@@ -46,7 +46,8 @@
     "cli-pie": "^2.4.2",
     "minimist": "1.2.5",
     "debug": "^4.2.0",
-    "snyk": "^1.306.0",
+
+    "snyk": "^1.393.0",
     "ora": "5.1.0"
   },
   "devDependencies": {
