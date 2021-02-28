@@ -47,7 +47,7 @@
     "minimist": "1.2.5",
     "debug": "^4.3.1",
 
-    "snyk": "^1.425.4",
+    "snyk": "^1.446.0",
     "ora": "5.3.0"
   },
   "devDependencies": {
