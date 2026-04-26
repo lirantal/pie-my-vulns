@@ -12,7 +12,6 @@
   <a href="https://www.npmjs.org/package/pie-my-vulns"><img src="https://badgen.net/npm/dt/pie-my-vulns" alt="downloads"/></a>
   <a href="https://circleci.com/gh/lirantal/security-report"><img src="https://circleci.com/gh/lirantal/security-report.svg?style=svg" alt="build"/></a>
   <a href="https://codecov.io/gh/lirantal/pie-my-vulns"><img src="https://badgen.net/codecov/c/github/lirantal/pie-my-vulns" alt="codecov"/></a>
-  <a href="https://snyk.io/test/github/lirantal/pie-my-vulns"><img src="https://snyk.io/test/github/lirantal/pie-my-vulns/badge.svg" alt="Known Vulnerabilities"/></a>
   <a href="./SECURITY.md"><img src="https://img.shields.io/badge/Security-Responsible%20Disclosure-yellow.svg" alt="Responsible Disclosure Policy" /></a>
 </p>
 
