@@ -1,4 +1,8 @@
 {
+  "publishConfig": {
+    "provenance": true,
+    "access": "public"
+  },
   "name": "pie-my-vulns",
   "version": "0.0.0-development",
   "description": "Visualize your project security vulnerabilities as a pie chart in the terminal",
