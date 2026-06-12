@@ -6,7 +6,8 @@
     "pie-my-vulns": "./bin/pie-my-vulns.js"
   },
   "engines": {
-    "node": ">=8.0.0"
+    "npm": ">=11.10.0",
+    "node": ">=24.0.0"
   },
   "scripts": {
     "lint": "eslint . && npm run lint:lockfile",
