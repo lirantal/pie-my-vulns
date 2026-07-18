@@ -1,0 +1,16 @@
+version: 2.1
+
+jobs:
+  validate:
+    docker:
+      - image: node:24
+    steps:
+      - checkout
+      - run: npm ci
+      - run: npm run lint
+      - run: npm test
+
+workflows:
+  validate:
+    jobs:
+      - validate
