@@ -5,7 +5,9 @@ jobs:
     docker:
       - image: node:24
     steps:
-      - checkout
+      - run:
+          name: Checkout source
+          command: git clone --depth 1 --branch "$CIRCLE_BRANCH" "$CIRCLE_REPOSITORY_URL" .
       - run: npm ci
       - run: npm run lint
       - run: npm test
