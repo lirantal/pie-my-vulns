@@ -7,9 +7,15 @@ const spawnAsync = util.promisify(childProcess.execFile)
 const exec = childProcess.execSync
 
 const cliBinPath = path.join(__dirname, '../../bin/pie-my-vulns.js')
+const hasSnykTestToken = Boolean(process.env.SNYK_TEST_TOKEN)
+const testWithSnykToken = hasSnykTestToken ? test : test.skip
 
 describe('End-to-End CLI', () => {
   beforeAll(() => {
+    if (!hasSnykTestToken) {
+      return
+    }
+
     let cmdForToken = `npx snyk config set "api=$SNYK_TEST_TOKEN"`
     if (os.platform() === 'win32') {
       cmdForToken = `npx snyk config set "api=%SNYK_TEST_TOKEN%"`
@@ -17,7 +23,7 @@ describe('End-to-End CLI', () => {
     exec(cmdForToken)
   })
 
-  test('CLI should return error code 2 when vulnerabilities are found', async () => {
+  testWithSnykToken('CLI should return error code 2 when vulnerabilities are found', async () => {
     expect.assertions(1)
 
     try {
@@ -29,7 +35,7 @@ describe('End-to-End CLI', () => {
     }
   })
 
-  test('CLI should show vulnerabilities breakdown numbers and their titles', async () => {
+  testWithSnykToken('CLI should show vulnerabilities breakdown numbers and their titles', async () => {
     expect.hasAssertions()
 
     try {
@@ -49,7 +55,7 @@ describe('End-to-End CLI', () => {
     }
   })
 
-  test('CLI should return error code 1 when there is an issue', async () => {
+  testWithSnykToken('CLI should return error code 1 when there is an issue', async () => {
     expect.assertions(2)
 
     try {
@@ -62,7 +68,7 @@ describe('End-to-End CLI', () => {
     }
   })
 
-  test('CLI should return error code 0 when no vulnerabilities are found', async () => {
+  testWithSnykToken('CLI should return error code 0 when no vulnerabilities are found', async () => {
     const { stdout, err } = await spawnAsync('node', [cliBinPath], {
       cwd: path.join(__dirname, 'project3')
     })
@@ -70,7 +76,7 @@ describe('End-to-End CLI', () => {
     expect(stdout).toContain('0 vulnerabilities found')
   })
 
-  test('CLI should accept path to project directory from command argument', async () => {
+  testWithSnykToken('CLI should accept path to project directory from command argument', async () => {
     const project3Dir = path.join(__dirname, 'project3')
     const { stdout, err } = await spawnAsync('node', [cliBinPath, '--directory', project3Dir], {
       cwd: path.join(__dirname, 'project1')
