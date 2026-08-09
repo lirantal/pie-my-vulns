@@ -49,6 +49,5 @@ LICENCE
 jsdoc.json
 
 # Source control and CI/CD
-.circleci/
 .github/
 .gitignore
