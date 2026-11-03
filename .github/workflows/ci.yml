@@ -20,6 +20,8 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
           cache: npm
+      - name: Set up pinned npm
+        run: bash "${{ github.workspace }}/.github/scripts/setup-npm.sh"
       - name: install dependencies
         run: npm install --ignore-engines
       - name: lint code
